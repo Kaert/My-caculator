@@ -1,0 +1,182 @@
+import tkinter #导入tkinter模块
+import math   #导入math模块
+
+root  = tkinter.Tk()
+root.minsize(490,520)
+root.title('计算器')
+
+
+#1.界面布局
+#显示面板
+result = tkinter.StringVar()
+result.set(0)                           #显示面板显示结果1，用于显示默认数字0
+result2 = tkinter.StringVar()           #显示面板显示结果2，用于显示计算过程
+result2.set('')
+#显示版
+label = tkinter.Label(root,font = ('微软雅黑',20),bg = '#EEE9E9',bd ='9',fg = '#828282',anchor = 'se',textvariable = result2)
+label.place(width = 490,height = 120)
+label2 = tkinter.Label(root,font = ('微软雅黑',30),bg = '#EEE9E9',bd ='9',fg = 'black',anchor = 'se',textvariable = result)
+label2.place(y = 120,width = 490,height = 60)
+
+
+
+
+#数字键按钮
+
+btn7 = tkinter.Button(root,text = '7',font = ('微软雅黑',20),fg = ('#4F4F4F'),bd = 0.5,command = lambda : press('7'))
+btn7.place(x = 0,y = 300,width = 70,height = 55)
+btn8 = tkinter.Button(root,text = '8',font = ('微软雅黑',20),fg = ('#4F4F4F'),bd = 0.5,command = lambda : press('8'))
+btn8.place(x = 70,y = 300,width = 70,height = 55)
+btn9 = tkinter.Button(root,text = '9',font = ('微软雅黑',20),fg = ('#4F4F4F'),bd = 0.5,command = lambda : press('9'))
+btn9.place(x = 140,y = 300,width = 70,height = 55)
+
+btn4 = tkinter.Button(root,text = '4',font = ('微软雅黑',20),fg = ('#4F4F4F'),bd = 0.5,command = lambda : press('4'))
+btn4.place(x = 0,y = 355,width = 70,height = 55)
+btn5 = tkinter.Button(root,text = '5',font = ('微软雅黑',20),fg = ('#4F4F4F'),bd = 0.5,command = lambda : press('5'))
+btn5.place(x = 70,y = 355,width = 70,height = 55)
+btn6 = tkinter.Button(root,text = '6',font = ('微软雅黑',20),fg = ('#4F4F4F'),bd = 0.5,command = lambda : press('6'))
+btn6.place(x = 140,y = 355,width = 70,height = 55)
+
+btn1 = tkinter.Button(root,text = '1',font = ('微软雅黑',20),fg = ('#4F4F4F'),bd = 0.5,command = lambda : press('1'))
+btn1.place(x = 0,y = 410,width = 70,height = 55)
+btn2 = tkinter.Button(root,text = '2',font = ('微软雅黑',20),fg = ('#4F4F4F'),bd = 0.5,command = lambda : press('2'))
+btn2.place(x = 70,y = 410,width = 70,height = 55)
+btn3 = tkinter.Button(root,text = '3',font = ('微软雅黑',20),fg = ('#4F4F4F'),bd = 0.5,command = lambda : press('3'))
+btn3.place(x = 140,y = 410,width = 70,height = 55)
+
+btn0 = tkinter.Button(root,text = '0',font = ('微软雅黑',20),fg = ('#4F4F4F'),bd = 0.5,command = lambda : press('0'))
+btn0.place(x = 70,y = 465,width = 70,height = 55)
+
+btnE = tkinter.Button(root,text ='e',font = ('微软雅黑',20),fg = "#4F4F4F",bd = 0.5,command = lambda:press('math.e'))
+btnE.place(x = 70,y = 190,width = 70,height = 55)
+btnpi = tkinter.Button(root,text ='π',font = ('微软雅黑',20),fg = "#4F4F4F",bd = 0.5,command = lambda:press('math.pi'))
+btnpi.place(x = 140,y = 190,width = 70,height = 55)
+
+#运算符号按钮
+btnac = tkinter.Button(root,text = 'AC',bd = 0.5,font = ('黑体',20),fg = 'orange',command = lambda :press('AC'))
+btnac.place(x = 0,y = 245,width = 70,height = 55)
+btnback = tkinter.Button(root,text = 'DEL',font = ('微软雅黑',20),fg = '#4F4F4F',bd = 0.5,command = lambda:press('b'))
+btnback.place(x = 70,y = 245,width = 70,height = 55)
+btnper = tkinter.Button(root,text = '%',font = ('微软雅黑',20),fg = ('#4F4F4F'),bd = 0.5,command = lambda:press('%'))
+btnper.place(x = 140,y = 245,width = 70,height = 55)
+btndivi = tkinter.Button(root,text = '÷',font = ('微软雅黑',20),fg = '#4F4F4F',bd = 0.5,command = lambda:press('/'))
+btndivi.place(x = 210,y = 245,width = 70,height = 55)
+btnmul = tkinter.Button(root,text ='×',font = ('微软雅黑',20),fg = "#4F4F4F",bd = 0.5,command = lambda:press('*'))
+btnmul.place(x = 210,y = 300,width = 70,height = 55)
+btnsub = tkinter.Button(root,text = '-',font = ('微软雅黑',20),fg = ('#4F4F4F'),bd = 0.5,command = lambda:press('-'))
+btnsub.place(x = 210,y = 355,width = 70,height = 55)
+btnadd = tkinter.Button(root,text = '+',font = ('微软雅黑',20),fg = ('#4F4F4F'),bd = 0.5,command = lambda:press('+'))
+btnadd.place(x = 210,y = 410,width = 70,height = 55)
+btnequ = tkinter.Button(root,text = '=',bg = 'orange',font = ('微软雅黑',20),fg = ('#4F4F4F'),bd = 0.5,command = lambda :pressEqual())
+btnequ.place(x = 210,y = 465,width = 70,height = 55)
+
+btnpoint = tkinter.Button(root,text = '.',font = ('微软雅黑',20),fg = ('#4F4F4F'),bd = 0.5,command = lambda:press('.'))
+btnpoint.place(x = 140,y = 465,width = 70,height = 55)
+btncomma = tkinter.Button(root,text =',',font = ('微软雅黑',20),fg = "#4F4F4F",bd = 0.5,command = lambda:press(','))
+btncomma.place(x = 0,y = 465,width = 70,height = 55)
+
+btnleftbracket = tkinter.Button(root,text ='(',font = ('微软雅黑',20),fg = "#4F4F4F",bd = 0.5,command = lambda:press('('))
+btnleftbracket.place(x = 0,y = 190,width = 70,height = 55)
+btnrightbracket = tkinter.Button(root,text =')',font = ('微软雅黑',20),fg = "#4F4F4F",bd = 0.5,command = lambda:press(')'))
+btnrightbracket.place(x = 210,y = 190,width = 70,height = 55)
+
+btnlog = tkinter.Button(root,text ='log',font = ('微软雅黑',20),fg = "#4F4F4F",bd = 0.5,command = lambda:press('math.log'))
+btnlog.place(x = 280,y = 190,width = 70,height = 55)
+btnfac = tkinter.Button(root,text ='X！',font = ('微软雅黑',20),fg = "#4F4F4F",bd = 0.5,command = lambda:press_special2())
+btnfac.place(x = 350,y = 190,width = 70,height = 55)
+btnuse = tkinter.Button(root,text ='Use',font = ('微软雅黑',15),fg = "#4F4F4F",bd = 0.5,command = lambda:press_special())
+btnuse.place(x = 420,y = 190,width = 70,height = 55)
+
+btnX2 = tkinter.Button(root,text ='^2',font = ('微软雅黑',20),fg = "#4F4F4F",bd = 0.5,command = lambda:press('**2'))
+btnX2.place(x = 280,y = 245,width = 70,height = 55)
+btnX3 = tkinter.Button(root,text ='^3',font = ('微软雅黑',20),fg = "#4F4F4F",bd = 0.5,command = lambda:press('**3'))
+btnX3.place(x = 350,y = 245,width = 70,height = 55)
+btnXn = tkinter.Button(root,text ='^n',font = ('微软雅黑',20),fg = "#4F4F4F",bd = 0.5,command = lambda:press('**'))
+btnXn.place(x = 420,y = 245,width = 70,height = 55)
+
+btnX_2 = tkinter.Button(root,text ='2√',font = ('微软雅黑',20),fg = "#4F4F4F",bd = 0.5,command = lambda:press('**0.5'))
+btnX_2.place(x = 280,y = 300,width = 70,height = 55)
+btnX_3 = tkinter.Button(root,text ='3√',font = ('微软雅黑',20),fg = "#4F4F4F",bd = 0.5,command = lambda:press('**(1/3)'))
+btnX_3.place(x = 350,y = 300,width = 70,height = 55)
+btnX_n = tkinter.Button(root,text ='n√',font = ('微软雅黑',20),fg = "#4F4F4F",bd = 0.5,command = lambda:press('**(1/'))
+btnX_n.place(x = 420,y = 300,width = 70,height = 55)
+
+btnsin = tkinter.Button(root,text ='sin',font = ('微软雅黑',20),fg = "#4F4F4F",bd = 0.5,command = lambda:press('math.sin'))
+btnsin.place(x = 280,y = 355,width = 70,height = 55)
+btncos = tkinter.Button(root,text ='cos',font = ('微软雅黑',20),fg = "#4F4F4F",bd = 0.5,command = lambda:press('math.cos'))
+btncos.place(x = 350,y = 355,width = 70,height = 55)
+btntan = tkinter.Button(root,text ='tan',font = ('微软雅黑',20),fg = "#4F4F4F",bd = 0.5,command = lambda:press('math.tan'))
+btntan.place(x = 420,y = 355,width = 70,height = 55)
+
+btncsc = tkinter.Button(root,text ='csc',font = ('微软雅黑',20),fg = "#4F4F4F",bd = 0.5,command = lambda:press('1/math.sin'))
+btncsc.place(x = 280,y = 410,width = 70,height = 55)
+btnsec = tkinter.Button(root,text ='sec',font = ('微软雅黑',20),fg = "#4F4F4F",bd = 0.5,command = lambda:press('1/math.cos'))
+btnsec.place(x = 350,y = 410,width = 70,height = 55)
+btncot = tkinter.Button(root,text ='cot',font = ('微软雅黑',20),fg = "#4F4F4F",bd = 0.5,command = lambda:press('1/math.tan'))
+btncot.place(x = 420,y = 410,width = 70,height = 55)
+
+btnarcsin = tkinter.Button(root,text ='arcsin',font = ('微软雅黑',15),fg = "#4F4F4F",bd = 0.5,command = lambda:press('math.asin'))
+btnarcsin.place(x = 280,y = 465,width = 70,height = 55)
+btnarccos = tkinter.Button(root,text ='arccos',font = ('微软雅黑',15),fg = "#4F4F4F",bd = 0.5,command = lambda:press('math.acos'))
+btnarccos.place(x = 350,y = 465,width = 70,height = 55)
+btnarctan = tkinter.Button(root,text ='arctan',font = ('微软雅黑',15),fg = "#4F4F4F",bd = 0.5,command = lambda:press('math.atan'))
+btnarctan.place(x = 420,y = 465,width = 70,height = 55)
+
+
+
+
+
+
+
+#操作函数
+lists = []                            #设置一个变量 保存运算数字和符号的列表
+
+#按键函数
+def press(sign):                   
+    global lists                     #全局化lists
+    lists.append(sign)
+    result2.set(lists)
+
+    if sign =='AC':                #如果按下的是'AC'按键，则清空列表内容，讲屏幕上的数字键设置为默认数字0
+       lists.clear()
+       result.set(0)
+       result2.set('')
+    if sign =='b':                 #如果按下的是退格‘’，则选取当前数字第一位到倒数第二位
+       lists = lists[0:-2]
+       result2.set(lists)
+
+#特殊按键
+def press_special():
+    global lists
+    a=result.get()
+    lists.append(a)
+    result2.set(lists)
+def press_special2():
+    global lists
+    def func(n):
+        if n==0 or n==1:
+            return 1
+        else:
+            return (n*func(n-1))
+    list2=[int(x) for x in lists]
+    n=list2[0]
+    result.set(func(n))
+
+
+
+#获取运算结果函数
+def pressEqual():
+    global lists
+
+    computrStr = ''.join(lists)     #讲列表内容用join命令将字符串链接起来
+    endNum = eval(computrStr)       #用eval命令运算字符串中的内容
+#    a = str(endNum)
+#   b = '='+a                       #给运算结果前添加一个 ‘=’ 显示   不过这样写会有BUG 不能连续运算，这里注释，不要 =
+#   c = b[0:10]                     #所有的运算结果取9位数
+    result.set(endNum)                   #讲运算结果显示到屏幕1
+    result2.set(computrStr)         #将运算过程显示到屏幕2
+    lists.clear()                   #清空列表内容
+
+
+#启动
+root.mainloop()
